@@ -1,49 +1,56 @@
 const express = require('express');
-const router = express.Router();
+const { check, validationResult } = require('express-validator');
+const routes = express.Router();
 const validUrl = require('valid-url');
-const shortid = require('shortid');
+const shortId = require('shortid');
 const config = require('config');
 
 const Url = require('../models/Url');
 
-//@route POST /api/url/shorten
-//@desc  Create short url
-router.post('/shorten', async (req, res) => {
-  const { longUrl } = req.body;
-  const baseUrl = config.get('baseUrl');
+//@routes POST PUBLIC api/url/shortener
+//@desc   Create Short Url
+routes.post(
+  '/shotener',
+  [
+    check('originalUrl', 'Please this field is required')
+      .not()
+      .isEmpty()
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty())
+      return res.status(422).json({ errors: errors.array() });
 
-  if (!validUrl.isUri(baseUrl)) {
-    return res.status(401).json('Invalid base url');
-  }
+    const { originalUrl } = req.body;
+    const baseUrl = config.get('baseURL');
 
-  //Create url code
-  const urlCode = shortid.generate();
+    if (!validUrl.isUri(baseUrl))
+      return res.status(404).json({ msg: 'Not Authorized' });
 
-  //Check long url
-  if (validUrl.isUri(longUrl)) {
+    if (!validUrl.isUri(originalUrl))
+      return res.status(400).json({ msg: 'Please enter a valid Url' });
+
     try {
-      let url = await Url.findOne({ longUrl });
-      if (url) res.json(url);
-      else {
-        const shortUrl = baseUrl + '/' + urlCode;
-        url = new Url({
-          longUrl,
-          shortUrl,
-          urlCode,
-          date: new Date()
-        });
+      let url = await Url.findOne({ originalUrl });
+      if (url) return res.json(url);
 
-        await url.save();
+      const urlCode = shortId.generate();
+      const shortUrl = baseUrl + '/' + urlCode;
 
-        res.json(url);
-      }
+      url = new Url({
+        urlCode,
+        originalUrl,
+        shortUrl
+      });
+
+      await url.save();
+
+      res.json(url);
     } catch (error) {
-      console.log(error);
-      res.status(500).json('Server error');
+      console.error(error);
+      res.status(500).send('Internal Server Errors');
     }
-  } else {
-    res.status(401).json('Invalid long url');
   }
-});
+);
 
-module.exports = router;
+module.exports = routes;

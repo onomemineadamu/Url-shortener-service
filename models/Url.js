@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
-const UrlSchema = new mongoose.Schema({
-  urlCode: String,
-  longUrl: String,
+UrlSchema = mongoose.Schema({
+  originalUrl: String,
   shortUrl: String,
+  clicks: {
+    type: Number,
+    default: 0
+  },
+  urlCode: String,
   date: {
     type: Date,
-    default: Date.now
+    default: Date.now()
   }
 });
 
