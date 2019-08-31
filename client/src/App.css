@@ -1,33 +1,78 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body {
+  line-height: 1.6;
+  font-size: 14px;
+  font-family: 'Chilanka', cursive;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1,
+h2,
+h3,
+h4,
+h6,
+h6 {
+  font-weight: 500;
+  color: #5f6368;
 }
 
-.App-link {
-  color: #61dafb;
+a {
+  cursor: pointer;
+  text-decoration: none;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+img {
+  border: none;
+}
+
+/* General Width Setting */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+}
+
+/* Section : nav */
+nav {
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid #dbdbdb;
+}
+
+/* Section : Shortener */
+.shortener {
+  background: #366ed1;
+}
+.p50 {
+  padding: 50px;
+}
+input[type='text'] {
+  width: 70%;
+  padding: 1rem;
+  border: none;
+  font-family: inherit;
+}
+input[type='submit'] {
+  padding: 1rem;
+  border: none;
+  cursor: pointer;
+  color: #039be5;
+  font-family: inherit;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  text-align: left;
+  border-bottom: 1px solid #5f6368;
+  padding: 1rem;
 }

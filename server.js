@@ -5,6 +5,7 @@ const connectDB = require('./config/db');
 connectDB();
 
 app.use(express.json({ extended: false }));
+
 app.use('/', require('./routes/index'));
 app.use('/api/url', require('./routes/url'));
 

@@ -9,8 +9,8 @@ UrlSchema = mongoose.Schema({
   },
   urlCode: String,
   date: {
-    type: Date,
-    default: Date.now()
+    type: String,
+    default: Date.now
   }
 });
 

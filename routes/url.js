@@ -10,7 +10,7 @@ const Url = require('../models/Url');
 //@routes POST PUBLIC api/url/shortener
 //@desc   Create Short Url
 routes.post(
-  '/shotener',
+  '/',
   [
     check('originalUrl', 'Please this field is required')
       .not()
@@ -40,7 +40,8 @@ routes.post(
       url = new Url({
         urlCode,
         originalUrl,
-        shortUrl
+        shortUrl,
+        date: new Date()
       });
 
       await url.save();

@@ -1,26 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
+import Nav from './components/layouts/Nav';
+import UrlState from './context/url/UrlState';
+import Urls from './components/urls/Urls';
+import UrlShortenForm from './components/urls/UrlShortenForm';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UrlState>
+      <Nav />
+      <UrlShortenForm />
+      <Urls />
+    </UrlState>
   );
-}
+};
 
 export default App;
